@@ -1,0 +1,54 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background: #000000;
+    color: #ffffff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.site-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.page-description {
+    margin: 20px;
+}
+
+.page-content {
+    margin: 20px;
+}
+
+.post-link {
+    font-style: italic;
+    margin-right: 10px;
+}
+.post-meta {
+    font-size: 14px;
+    color: #666666;
+}
+
+.page-stretcher {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+    width: max-content;
+}
+
+footer {
+    background: #000000;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}

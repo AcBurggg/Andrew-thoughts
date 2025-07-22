@@ -18,6 +18,21 @@ header {
     text-decoration: underline;
 }
 
+.subpage-title {
+    font-size: 2em;
+    text-align: left;
+    text-decoration: underline;
+    margin-bottom: 0.5em;
+}
+
+.subpage-intro {
+    text-indent: 2em;
+    margin: 20px;
+}
+.subpage-content {
+    margin: 20px;
+}
+
 .page-description {
     margin: 20px;
 }

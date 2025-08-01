@@ -7,7 +7,6 @@ body {
 
 header {
     background: #000000;
-    color: #ffffff;
     padding: 10px 0;
     text-align: center;
 }
@@ -20,8 +19,9 @@ header {
 }
 
 .subpage-title {
-    font-size: 2em;
+    font-size: 24px;
     text-align: left;
+    font-weight: bold;
     text-decoration: underline;
     margin-bottom: 0.5em;
 }
@@ -31,10 +31,6 @@ header {
     margin: 20px;
 }
 .subpage-content {
-    margin: 20px;
-}
-
-.page-description {
     margin: 20px;
 }
 
@@ -57,6 +53,7 @@ header {
     margin-right: auto;
     height: auto;
     width: auto;
+    max-width: 100%;
 }
 
 footer {

@@ -21,13 +21,6 @@
       padding: 0.5em;
       text-align: center;
     }
-    .note {
-      font-style: italic;
-      color: #555;
-    }
-    h2 {
-      margin-top: 2em;
-    }
   </style>
 </head>
 <body>
@@ -35,12 +28,12 @@
         <a class="site-title" href="../index.html">Andrew's Thoughts</a>
     </header>
     <main class="subpage-content">
-        <h1 class="subpage-title">Why XOR?</h1>
+        <p class="subpage-title">Why XOR?</p>
         <div class="subpage-intro">
             <p>Over the past few months, I’ve been working a lot with ChaCha20, a symmetric encryption algorithm designed as a less-computationally intensive alternative to the AES algorithm on CPUs without dedicated hardware acceleration. This algorithm uses an add-rotate-XOR (ARX) block function in counter mode to generate a pseudorandom keystream. (My previous <a href="https://github.com/AcBurggg/chacha20_circuitSim" target="_blank"> post</a> links to a repository with an implementation of this block function in CircuitSim, an educational software used in courses like Organization & Programming and Systems & Networks at Georgia Tech.) Once generated, this keystream is simply XOR’d with a plaintext to produce the ciphertext. This asymmetry got me thinking. Why’s the complexity required to generate the keystream so much greater than that of the “actual encrypting”? And why did we choose to use XOR instead of one of the many other logic gates taught in an introductory digital logic course such as AND/OR/NAND/NOR?</p>
         </div>
 
-    <h2>1. XOR is Reversible</h2>
+    <h3>1. XOR is Reversible</h3>
 
       <p>The first benefit of using XOR comes from the fact that it is <a href="https://en.wikipedia.org/wiki/Involution_(mathematics)" target="_blank">involutory</a>. This means you can perform the same operation to both encrypt and decrypt. You don’t need two separate logical constructions. This property can be understood using the following assumptions (...which can be proven via truth table or boolean algebra if so desired... but you really don't have to do that #trustMe).</p>
 
@@ -64,7 +57,7 @@
         \]
       </p>
 
-      <h2>2. Security Benefits</h2>
+      <h3>2. Security Benefits</h3>
 
       <p>The second (and more interesting) benefit is the security that XOR provides.</p>
 

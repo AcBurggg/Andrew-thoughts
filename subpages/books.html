@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andrew Thoughts</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .book-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .book-card {
+            border: 1px solid #000000;
+            padding: 15px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            flex: 1 1 300px;
+            min-width: 250px;
+        }
+        
+        .book-title {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 8px;
+        }
+        
+        .book-author {
+            font-style: italic;
+            color: #333333;
+            margin-bottom: 5px;
+        }
+        
+        .book-genre {
+            background-color: #f0f0f0;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.9em;
+            display: inline-block;
+            margin: 5px 5px 5px 0;
+        }
+        
+        .book-rating {
+            color: #666666;
+            font-size: 0.9em;
+        }
+        
+        .filter-controls {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #ffffff;
+            border-radius: 5px;
+        }
+        
+        .filter-controls select, .filter-controls input {
+            margin: 5px 10px 5px 0;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <a class="site-title" href="../index.html">Andrew's Thoughts</a>
+    </header>
+    <main class="subpage-content">
+        <p class="subpage-title">Books I Enjoy 📚</p>
+
+        <div class="filter-controls" id="filterControls">
+            <label for="genreFilter">Filter by Genre:</label>
+            <select id="genreFilter">
+                <option value="all">All Genres</option>
+                <option value="fiction">Fiction</option>
+                <option value="non-fiction">Non-Fiction</option>
+                <option value="technical">Technical</option>
+                <option value="biography">Biography</option>
+                <option value="science">Science</option>
+            </select>
+            
+            <label for="sortBy">Sort by:</label>
+            <select id="sortBy">
+                <option value="title">Title</option>
+                <option value="author">Author</option>
+                <option value="rating">Rating</option>
+            </select>
+        </div>
+
+        <div class="book-container" id="bookContainer">
+            <div class="book-card" data-genre="fiction" data-author="orwell" data-rating="5">
+                <div class="book-title">1984</div>
+                <div class="book-author">by George Orwell</div>
+                <div class="book-genre">Fiction</div>
+                <div class="book-genre">Dystopian</div>
+                <div class="book-rating">Rating: 5/5</div>
+                <p>A chilling look at totalitarianism and surveillance that feels increasingly relevant.</p>
+            </div>
+
+            <div class="book-card" data-genre="technical" data-author="kernighan" data-rating="5">
+                <div class="book-title">The C Programming Language</div>
+                <div class="book-author">by Brian Kernighan & Dennis Ritchie</div>
+                <div class="book-genre">Technical</div>
+                <div class="book-genre">Programming</div>
+                <div class="book-rating">Rating: 5/5</div>
+                <p>The definitive guide to C programming. Clear, concise, and still relevant decades later.</p>
+            </div>
+
+            <div class="book-card" data-genre="science" data-author="feynman" data-rating="4">
+                <div class="book-title">Surely You're Joking, Mr. Feynman!</div>
+                <div class="book-author">by Richard Feynman</div>
+                <div class="book-genre">Science</div>
+                <div class="book-genre">Biography</div>
+                <div class="book-rating">Rating: 4/5</div>
+                <p>Adventures of a curious physicist. Shows how playfulness and curiosity drive discovery.</p>
+            </div>
+
+            <div class="book-card" data-genre="technical" data-author="schneier" data-rating="5">
+                <div class="book-title">Applied Cryptography</div>
+                <div class="book-author">by Bruce Schneier</div>
+                <div class="book-genre">Technical</div>
+                <div class="book-genre">Cryptography</div>
+                <div class="book-rating">Rating: 5/5</div>
+                <p>Comprehensive coverage of cryptographic protocols and algorithms. Essential reading for security.</p>
+            </div>
+
+            <div class="book-card" data-genre="fiction" data-author="asimov" data-rating="4">
+                <div class="book-title">Foundation</div>
+                <div class="book-author">by Isaac Asimov</div>
+                <div class="book-genre">Fiction</div>
+                <div class="book-genre">Science Fiction</div>
+                <div class="book-rating">Rating: 4/5</div>
+                <p>Epic tale of galactic empire and the power of mathematics and psychology to predict the future.</p>
+            </div>
+
+            <div class="book-card" data-genre="non-fiction" data-author="kahneman" data-rating="4">
+                <div class="book-title">Thinking, Fast and Slow</div>
+                <div class="book-author">by Daniel Kahneman</div>
+                <div class="book-genre">Non-Fiction</div>
+                <div class="book-genre">Psychology</div>
+                <div class="book-rating">Rating: 4/5</div>
+                <p>Fascinating exploration of how our minds make decisions and the biases that influence us.</p>
+            </div>
+        </div>
+    </main>
+    <footer class="site-footer">
+        <p>This is my website's footer!</p>
+        <a class="subpage-footer-return" href="../index.html">Back to Main</a>
+    </footer>
+    <script src="../js/scripts.js"></script>
+</body>
+</html>

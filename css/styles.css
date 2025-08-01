@@ -1,8 +1,8 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Times New Roman', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #cbc0c0;
 }
 
 header {
@@ -13,6 +13,7 @@ header {
 }
 
 .site-title {
+    color: #ffffff;
     font-size: 24px;
     font-weight: bold;
     text-decoration: underline;
@@ -66,4 +67,8 @@ footer {
     position: relative;
     bottom: 0;
     width: 100%;
+}
+
+.subpage-footer-return {
+    color:#ffffff;
 }

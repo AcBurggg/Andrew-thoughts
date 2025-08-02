@@ -59,6 +59,59 @@
             margin: 5px 10px 5px 0;
             padding: 5px;
         }
+        
+        .custom-dropdown {
+            position: relative;
+            display: inline-block;
+            margin: 5px 10px 5px 0;
+        }
+        
+        .dropdown-selected {
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 8px 30px 8px 10px;
+            cursor: pointer;
+            min-width: 150px;
+            position: relative;
+        }
+        
+        .dropdown-selected:after {
+            content: "▼";
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+        }
+        
+        .dropdown-options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-top: none;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+        
+        .dropdown-options label {
+            display: block;
+            padding: 8px 10px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        
+        .dropdown-options label:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .dropdown-options input[type="checkbox"] {
+            margin-right: 8px;
+        }
     </style>
 </head>
 <body>
@@ -70,14 +123,17 @@
 
         <div class="filter-controls" id="filterControls">
             <label for="genreFilter">Filter by Genre:</label>
-            <select id="genreFilter">
-                <option value="all">All Genres</option>
-                <option value="fiction">Fiction</option>
-                <option value="non-fiction">Non-Fiction</option>
-                <option value="technical">Technical</option>
-                <option value="biography">Biography</option>
-                <option value="science">Science</option>
-            </select>
+            <div class="custom-dropdown">
+                <div class="dropdown-selected" id="genreSelected">All Genres</div>
+                <div class="dropdown-options" id="genreOptions">
+                    <label><input type="checkbox" value="all" checked> All Genres</label>
+                    <label><input type="checkbox" value="fiction"> Fiction</label>
+                    <label><input type="checkbox" value="non-fiction"> Non-Fiction</label>
+                    <label><input type="checkbox" value="technical"> Technical</label>
+                    <label><input type="checkbox" value="biography"> Biography</label>
+                    <label><input type="checkbox" value="science"> Science</label>
+                </div>
+            </div>
             
             <label for="sortBy">Sort by:</label>
             <select id="sortBy">

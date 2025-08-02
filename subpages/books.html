@@ -23,13 +23,13 @@
         }
         
         .book-title {
+            font-style: italic;
             font-weight: bold;
             font-size: 1.2em;
             margin-bottom: 8px;
         }
         
         .book-author {
-            font-style: italic;
             color: #333333;
             margin-bottom: 5px;
         }
@@ -128,10 +128,10 @@
                 <div class="dropdown-options" id="genreOptions">
                     <label><input type="checkbox" value="all" checked> All Genres</label>
                     <label><input type="checkbox" value="fiction"> Fiction</label>
-                    <label><input type="checkbox" value="non-fiction"> Non-Fiction</label>
                     <label><input type="checkbox" value="technical"> Technical</label>
                     <label><input type="checkbox" value="biography"> Biography</label>
                     <label><input type="checkbox" value="science"> Science</label>
+                    <label><input type="checkbox" value="history"> History</label>
                 </div>
             </div>
             
@@ -147,59 +147,52 @@
         </div>
 
         <div class="book-container" id="bookContainer">
-            <div class="book-card" data-genre="fiction" data-author="orwell" data-rating="5">
-                <div class="book-title">1984</div>
-                <div class="book-author">by George Orwell</div>
-                <div class="book-genre">Fiction</div>
-                <div class="book-genre">Dystopian</div>
-                <div class="book-rating">Rating: 5/5</div>
-                <p>A chilling look at totalitarianism and surveillance that feels increasingly relevant.</p>
-            </div>
 
-            <div class="book-card" data-genre="technical" data-author="kernighan" data-rating="5">
-                <div class="book-title">The C Programming Language</div>
-                <div class="book-author">by Brian Kernighan & Dennis Ritchie</div>
+            <div class="book-card" data-genre="technical" data-author="Patt" data-rating="5">
+                <div class="book-title">Introduction to Computing Systems</div>
+                <div class="book-author">Yale Patt & Sanjay Patel</div>
                 <div class="book-genre">Technical</div>
-                <div class="book-genre">Programming</div>
+                <div class="book-genre">Computer Organization</div>
                 <div class="book-rating">Rating: 5/5</div>
-                <p>The definitive guide to C programming. Clear, concise, and still relevant decades later.</p>
+                <p>Guides the reader step-by-step down the path from wires and silicon to fully working computers (albeit a very simple one called the LC-3).</p>
             </div>
 
-            <div class="book-card" data-genre="science" data-author="feynman" data-rating="4">
-                <div class="book-title">Surely You're Joking, Mr. Feynman!</div>
-                <div class="book-author">by Richard Feynman</div>
-                <div class="book-genre">Science</div>
+            <div class="book-card" data-genre="technical" data-author="Kurose" data-rating="3.5">
+                <div class="book-title">Computer Networking: A Top-Down Approach</div>
+                <div class="book-author">James Kurose & Keith Ross</div>
+                <div class="book-genre">Technical</div>
+                <div class="book-genre">Networking</div>
+                <div class="book-rating">Rating: 3.5/5</div>
+                <p>Talks about each layer of the network stack in simple terms.</p>
+            </div>
+
+            <div class="book-card" data-genre="history" data-author="Goldsworthy" data-rating="4.5">
+                <div class="book-title">Caesar, Life of a Colossus</div>
+                <div class="book-author">Adrian Goldsworthy</div>
+                <div class="book-genre">History</div>
                 <div class="book-genre">Biography</div>
+                <div class="book-genre">Rome</div>
+                <div class="book-rating">Rating: 4.5/5</div>
+                <p>Biography of the life of Julius Caesar.</p>
+            </div>
+
+            <div class="book-card" data-genre="history" data-author="Beard" data-rating="4">
+                <div class="book-title">SPQR: A History of Ancient Rome</div>
+                <div class="book-author">Mary Beard</div>
+                <div class="book-genre">History</div>
+                <div class="book-genre">Rome</div>
                 <div class="book-rating">Rating: 4/5</div>
-                <p>Adventures of a curious physicist. Shows how playfulness and curiosity drive discovery.</p>
+                <p>Tells the story of how Rome rose to prominence as a successful Mediterranean republic before becoming one of the longest lasting empires in history. (ends at the rule of Caracalla if I remember correctly)</p>
             </div>
 
-            <div class="book-card" data-genre="technical" data-author="schneier" data-rating="5">
-                <div class="book-title">Applied Cryptography</div>
-                <div class="book-author">by Bruce Schneier</div>
-                <div class="book-genre">Technical</div>
-                <div class="book-genre">Cryptography</div>
-                <div class="book-rating">Rating: 5/5</div>
-                <p>Comprehensive coverage of cryptographic protocols and algorithms. Essential reading for security.</p>
-            </div>
-
-            <div class="book-card" data-genre="fiction" data-author="asimov" data-rating="4">
-                <div class="book-title">Foundation</div>
-                <div class="book-author">by Isaac Asimov</div>
+            <div class="book-card" data-genre="fiction" data-author="Dostoevsky" data-rating="4">
+                <div class="book-title">Crime and Punishment</div>
+                <div class="book-author">Fyodor Dostoevsky</div>
                 <div class="book-genre">Fiction</div>
-                <div class="book-genre">Science Fiction</div>
                 <div class="book-rating">Rating: 4/5</div>
-                <p>Epic tale of galactic empire and the power of mathematics and psychology to predict the future.</p>
+                <p>Really well written characters. Enjoyable read all things considered.</p>
             </div>
 
-            <div class="book-card" data-genre="non-fiction" data-author="kahneman" data-rating="4">
-                <div class="book-title">Thinking, Fast and Slow</div>
-                <div class="book-author">by Daniel Kahneman</div>
-                <div class="book-genre">Non-Fiction</div>
-                <div class="book-genre">Psychology</div>
-                <div class="book-rating">Rating: 4/5</div>
-                <p>Fascinating exploration of how our minds make decisions and the biases that influence us.</p>
-            </div>
         </div>
     </main>
     <footer class="site-footer">

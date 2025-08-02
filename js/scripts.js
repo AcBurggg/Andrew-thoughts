@@ -1,39 +1,46 @@
 document.addEventListener('DOMContentLoaded', function() {
     const genreSelected = document.getElementById('genreSelected');
     const genreOptions = document.getElementById('genreOptions');
-    const sortBy = document.getElementById('sortBy');
+    const sortSelected = document.getElementById('sortSelected');
+    const sortOptions = document.getElementById('sortOptions');
     const bookContainer = document.getElementById('bookContainer');
     
-    if (!genreSelected || !genreOptions || !sortBy || !bookContainer) return;
+    if (!genreSelected || !genreOptions || !sortSelected || !sortOptions || !bookContainer) return;
     
     let allBooks = Array.from(bookContainer.children);
     
-    // Toggle dropdown
+    // Toggle genre dropdown
     genreSelected.addEventListener('click', function() {
         genreOptions.style.display = genreOptions.style.display === 'block' ? 'none' : 'block';
+        sortOptions.style.display = 'none'; // Close sort dropdown
     });
     
-    // Close dropdown when clicking outside
+    // Toggle sort dropdown
+    sortSelected.addEventListener('click', function() {
+        sortOptions.style.display = sortOptions.style.display === 'block' ? 'none' : 'block';
+        genreOptions.style.display = 'none'; // Close genre dropdown
+    });
+    
+    // Close dropdowns when clicking outside
     document.addEventListener('click', function(e) {
         if (!e.target.closest('.custom-dropdown')) {
             genreOptions.style.display = 'none';
+            sortOptions.style.display = 'none';
         }
     });
     
-    // Handle checkbox changes
+    // Handle genre checkbox changes
     genreOptions.addEventListener('change', function(e) {
         const checkboxes = genreOptions.querySelectorAll('input[type="checkbox"]');
         const allCheckbox = genreOptions.querySelector('input[value="all"]');
         
         if (e.target.value === 'all') {
-            // If "All" is checked, uncheck others
             if (e.target.checked) {
                 checkboxes.forEach(cb => {
                     if (cb.value !== 'all') cb.checked = false;
                 });
             }
         } else {
-            // If any other checkbox is checked, uncheck "All"
             if (e.target.checked) {
                 allCheckbox.checked = false;
             }
@@ -41,6 +48,15 @@ document.addEventListener('DOMContentLoaded', function() {
         
         updateSelectedText();
         filterAndSort();
+    });
+    
+    // Handle sort radio button changes
+    sortOptions.addEventListener('change', function(e) {
+        if (e.target.type === 'radio') {
+            sortSelected.textContent = e.target.nextSibling.textContent.trim();
+            sortOptions.style.display = 'none';
+            filterAndSort();
+        }
     });
     
     function updateSelectedText() {
@@ -59,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function filterAndSort() {
         const checkedBoxes = genreOptions.querySelectorAll('input[type="checkbox"]:checked');
         const selectedGenres = Array.from(checkedBoxes).map(cb => cb.value);
-        const selectedSort = sortBy.value;
+        const selectedSort = sortOptions.querySelector('input[type="radio"]:checked').value;
         
         // Filter books
         let filteredBooks = allBooks.filter(book => {
@@ -95,7 +111,4 @@ document.addEventListener('DOMContentLoaded', function() {
         bookContainer.innerHTML = '';
         filteredBooks.forEach(book => bookContainer.appendChild(book));
     }
-    
-    // Add event listener for sort
-    sortBy.addEventListener('change', filterAndSort);
 });

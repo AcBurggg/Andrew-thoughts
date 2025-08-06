@@ -97,8 +97,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     bValue = b.dataset.author;
                     break;
                 case 'rating':
-                    aValue = parseInt(a.dataset.rating);
-                    bValue = parseInt(b.dataset.rating);
+                    aValue = parseFloat(a.dataset.rating);
+                    bValue = parseFloat(b.dataset.rating);
                     return bValue - aValue;
                 default:
                     return 0;

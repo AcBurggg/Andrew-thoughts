@@ -80,10 +80,22 @@ document.addEventListener('DOMContentLoaded', function() {
         // Filter books
         let filteredBooks = allBooks.filter(book => {
             if (selectedGenres.includes('all') || selectedGenres.length === 0) return true;
-            return selectedGenres.includes(book.dataset.genre);
+            
+            // Get all genre elements for this book
+            const bookGenres = Array.from(book.querySelectorAll('.book-genre')).map(genre => 
+                genre.textContent.toLowerCase().trim()
+            );
+            
+            // Check if any selected genre matches any of the book's genres
+            return selectedGenres.some(selectedGenre => 
+                bookGenres.some(bookGenre => 
+                    bookGenre.includes(selectedGenre.toLowerCase()) || 
+                    selectedGenre.toLowerCase().includes(bookGenre)
+                )
+            );
         });
         
-        // Sort books
+        // Sort books (rest remains the same)
         filteredBooks.sort((a, b) => {
             let aValue, bValue;
             
@@ -106,8 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             return aValue > bValue ? 1 : -1;
         });
-        
-        // Clear container and add filtered/sorted books
+
         bookContainer.innerHTML = '';
         filteredBooks.forEach(book => bookContainer.appendChild(book));
     }

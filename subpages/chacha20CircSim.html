@@ -6,6 +6,39 @@
     <title>ChaCha20 Encryption in CircuitSim</title>
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="icon" type="image/png" href="../images/favicon.png">
+    <style>
+        .circuitry-images img{
+            max-width: 100%;
+            height: auto;
+            width: 600px;
+            display: block;
+            margin: 1em 0 1em 0;
+        }
+        .image-descriptor {
+            font-size: 0.9em;
+            font-style: italic;
+            color: #555;
+            margin: 0.2em 0 1em 0;
+        }
+        .image-row {
+            display: flex;
+            gap: 1em; /* space between images */
+            margin: 1em 0;
+        }
+        .image-row img {
+            max-width: 100%;
+            width: 48%; /* or a fixed width like 300px */
+            height: auto;
+            display: block;
+        }
+        .initial-state {
+            max-width: 100%;
+            height: auto;
+            width: 300px;
+            display: block;
+            margin: 1em 0 1em 0;
+        }
+    </style>
 </head>
 <body>
     <header class="site-header">
@@ -13,41 +46,15 @@
     </header>
     <main class="subpage-content">
         <p class="subpage-title">Chacha20 Encryption in CircuitSim</p>
-            <p> Note that some information in the user guide is intended for unix-like/Mac users. (.sh script and ⌘+K hotkeys)</p>
-            <h2>User Guide to the code found <a href="https://github.com/AcBurggg/chacha20_circuitSim" target="_blank"> here</a></h2>
-            <ol>
-                <li>Traverse to <code>./IO</code> directory</li>
-                <li>
-                    Update <code>inputs.txt</code> with your desired inputs. The default values represent the test vector found 
-                    <a href="https://www.rfc-editor.org/rfc/rfc7539#page-9" target="_blank">here</a>.
-                    Your key should be 64 hex characters long for a total of 256 bits. Your counter should be 8 hex characters long. Your nonce should be 24 hex characters long.
-                    <strong>DO NOT DELETE THE START OF EACH LINE</strong> (i.e. "key: ", "counter: ", etc). Your user-inputted values should follow the same format as the example in which each set of eight hex characters has a space between it.
-                    If you change the key/counter/nonce values here, you will also need to update them in the main subcircuit of chacha20.sim. If you're trying to avoid tedious work, just leave these default values.
-                </li>
-                <li>
-                    Update line 4 of <code>inputs.txt</code> with a plaintext of your choosing. In other words, replace the <code>[hello i'm andy]</code> part with the string you'd like to encrypt. Again, do not delete the start of the line ("plaintext: ") Leave the quotation marks around your string. Your string should be 64 characters or fewer.
-                </li>
-                <li>
-                    In this same directory, run the following command <code>./run.sh</code>. Ensure that the directory now contains a file called <code>hexoutput.dat</code> and that the terminal is populated with some relevant information regarding your encrypting set-up/expected ciphertext.
-                </li>
-                <li>
-                    Open <code>chacha20.sim</code> in circuitSim. On the subcircuit titled "main" find the ROM with the label "PLAINTEXT HERE!!". Right click it and select "load from file". Navigate to and select <code>hexoutput.dat</code>.
-                </li>
-                <li>
-                    Ensure that simulation is enabled in the file. Scroll down and find the set of red hex displays. Start the simulation by manually shift clicking the green clock icon or by pressing Command+K. You should see the expected ciphertext values appear on these displays.
-                </li>
-            </ol>
-
+            <p>A user guide to the code found in the repository <a href="https://github.com/AcBurggg/chacha20_circuitSim" target="_blank"> here</a> is in the README. Note that some instructions/content in the repository is intended for unix-like/Mac systems since that's what I use.</p>
+            <br>
             <h2>Fun Background Information</h2>
             <p>
                 Chacha20 is a symmetric encryption cipher that is used to ensure confidentiality of messages over an unsecure channel. "Symmetric" just means that both encryption and decryption are performed using the same key that is known to both communicating parties (oftentimes called Alice and Bob...aka point A and point B). This key should never be shared publically (even though it is flaunted wildly in the circuitry and scripts here, don't do this in real life. This is just for education). It's been adopted by TLS and is faster than AES on devices such as mobile phones that don't have dedicated AES accelerators. I think it is pretty cool.
             </p>
             <p>
                 <code>chacha20.sim</code> can be opened using CS2110-CircuitSim.jar (present in this repository) - a modification of the software found 
-                <a href="https://github.com/ra4king/CircuitSim" target="_blank">here</a>. It should also work with other versions of circuitSim... but no guarantees.
-            </p>
-            <p>
-                In this file is a circuitry implementation of the chacha20 block function as described in this 
+                <a href="https://github.com/ra4king/CircuitSim" target="_blank">here</a>. It should also work with other versions of circuitSim... but no guarantees. In this file is a circuitry implementation of the chacha20 block function as described in this 
                 <a href="https://www.rfc-editor.org/rfc/rfc7539" target="_blank">RFC document</a>.
                 Note that a more broad overview can be found on the 
                 <a href="https://en.wikipedia.org/wiki/Salsa20#ChaCha_variant" target="_blank">Salsa20 wikipedia page</a>.
@@ -60,15 +67,125 @@
                 The block function's purpose is to generate a long keystream that can then be XOR'd with a plaintext input to get a ciphertext. The block function uses this counter (CTR) mode of operation just to generate the keystream. The actual encryption itself can be thought of as a stream cipher.
             </p>
             <p>
-                In addition to generating this keystream, the main subcircuit also supports the actual encryption process of a provided plaintext string on red hex displays (process described above).
+                In addition to generating this keystream, the main subcircuit also supports the actual encryption process of a provided plaintext string on red hex displays.
             </p>
             <p>
-                Currently, the circuitry is able to generate 512 bits of keystream at once meaning that strings to be encrypted should be limited to (512 / 8 bits per ascii char) 64 characters or fewer. In real life, the benefit of the CTR mode would allow 2^32 * 512 bits to be generated easily by merely incrementing the counter value and running the block function again- this functionality has not (yet) been implemented in my .sim file.
+                Currently, the circuitry is able to generate 512 bits of keystream at once meaning that strings to be encrypted should be limited to (512 / 8 bits per ascii char) 64 characters or fewer. In real life, the benefit of the CTR mode would allow 2^32 * 512 bits to be generated easily by merely incrementing the counter value and running the block function again- this functionality has not (yet) been implemented in my .sim file. <em>It already took me like 2 months after making the circuitry to actually sit down and create this write-up, so I wouldn't expect this update any time soon (probably ever).</em>
             </p>
             <p>
-                <a href="https://www.youtube.com/watch?v=UeIpq-C-GSA&t=35s&ab_channel=Computerphile" target="_blank">Here</a> is a great video by Computerphile that describes the block function well.
+                <a href="https://www.youtube.com/watch?v=UeIpq-C-GSA&t=35s&ab_channel=Computerphile" target="_blank">Here's</a> a great video by Computerphile that describes the block function way better than I can. But that's not gonna stop me from trying below 🫡
             </p>
         </div>
+        <br>
+        <h2>Definition of the ChaCha20 Block Function</h2>
+        <p>The ChaCha20 block function is used to generate a pseudorandom stream of bits that can then be XOR'd with a plaintext to get a ciphertext (more information on that can be found in my article <a href="../subpages/whyXOR.html" target="_blank">here</a>). This block function is based on three main computationally-inexpensive operations: Add, Rotate, and XOR.</p>
+        <section class="quarter-round-section" style="margin-top:2em;">
+            <p>The initial state this block_function accepts as an input can be thought of as a matrix of 512 bits, organized logically into sixteen 32-bit words. In C, these get represented as unsigned integers. These words are numbered in red in my diagram. The first four are the nothing-up-my-sleeve-number constant. The next eight are the key, followed by two for the counter and two for the nonce.</p>
+            <img class="initial-state" src="../images/chacha20circuitry/initialState.png" alt="chacha20 initial state matrix">
+            <p>
+                ChaCha defines a quarter round below. It takes in four different 4-byte words of the state matrix and updates it by performing the following operations. Note that "<<<" means rotate.
+            </p>
+            <pre style="background:#f6f6f6; border-radius:6px; padding:1em; overflow-x:auto;">
+a += b; d ^= a; d &lt;&lt;&lt;= 16;
+c += d; b ^= c; b &lt;&lt;&lt;= 12;
+a += b; d ^= a; d &lt;&lt;&lt;=  8;
+c += d; b ^= c; b &lt;&lt;&lt;=  7;
+            </pre>
+            <p>
+                These quarter rounds are performed on different parts of the state matrix in succession for a total of 20 total rounds (...hence the name ChaChaTWENTY). Four quarter rounds make up one round. Two rounds make up one double round.
+            </p>
+            <p>
+                In the below C implementation provided on the <a href="https://en.wikipedia.org/wiki/Salsa20" target="_blank">Salsa20 wikipedia page</a>, a for-loop iterates ten times with a double round being performed in each iteration. A double round ensures that every single column and every single diagonal are inputted into a quarter round together. Note that the final outputted keystream is calculated by taking the result and adding it to the initial input.
+            </p>
+            <pre style="background:#f6f6f6; border-radius:6px; padding:1em; overflow-x:auto;">
+#include &lt;stdint.h&gt;
+#define ROTL(a,b) (((a) &lt;&lt; (b)) | ((a) &gt;&gt; (32 - (b))))
+#define QR(a, b, c, d) (             \
+    a += b, d ^= a, d = ROTL(d, 16), \
+    c += d, b ^= c, b = ROTL(b, 12), \
+    a += b, d ^= a, d = ROTL(d,  8), \
+    c += d, b ^= c, b = ROTL(b,  7))
+#define ROUNDS 20
+
+void chacha_block(uint32_t out[16], uint32_t const in[16])
+{
+    int i;
+    uint32_t x[16];
+
+    for (i = 0; i &lt; 16; ++i)
+        x[i] = in[i];
+    // 10 loops × 2 rounds/loop = 20 rounds
+    for (i = 0; i &lt; ROUNDS; i += 2) {
+        // Odd round
+        QR(x[0], x[4], x[ 8], x[12]); // column 1
+        QR(x[1], x[5], x[ 9], x[13]); // column 2
+        QR(x[2], x[6], x[10], x[14]); // column 3
+        QR(x[3], x[7], x[11], x[15]); // column 4
+        // Even round
+        QR(x[0], x[5], x[10], x[15]); // diagonal 1 (main diagonal)
+        QR(x[1], x[6], x[11], x[12]); // diagonal 2
+        QR(x[2], x[7], x[ 8], x[13]); // diagonal 3
+        QR(x[3], x[4], x[ 9], x[14]); // diagonal 4
+    }
+    for (i = 0; i &lt; 16; ++i)
+        out[i] = x[i] + in[i];
+}
+            </pre>
+        </section>
+
+    <br>
+    <h2>My Block Function (and the subcircuits it's made of)</h2>
+    <div class="circuitry-images">
+        <img src="../images/chacha20circuitry/rotate12.png" alt="Rotate12 subcircuit">
+        <p class="image-descriptor">The circuitry used to perform a left circular 12-place bitwise rotation of a 4-byte input.</p>
+        <br>
+
+        <img src="../images/chacha20circuitry/quarterRound.png" alt="quarter round subcircuit">
+        <p class="image-descriptor">The quarter round with all defined Adds, Rotates, and XORs</p>
+        <br>
+
+        <img src="../images/chacha20circuitry/doubleRound.png" alt="double round subcircuit">
+        <p class="image-descriptor">The double round composed of 8 total quarter round subcircuits (represented by the white rectangles).</p>
+        <br>
+
+        <img src="../images/chacha20circuitry/blockFunction.png" alt="BlockFunction subcircuit">
+        <p class="image-descriptor">The entire block function composed of 10 double rounds. 512 bit input state --> 512 bit output state.</p>
+    </div>
+    <br>
+
+    <h2>Proof My Block Function Works</h2>
+    <div class="image-row">
+        <img src="../images/chacha20circuitry/testVector.png" alt="Quarter round subcircuit">
+        <img src="../images/chacha20circuitry/testBench.png" alt="Rotate12 subcircuit">
+    </div>
+    <p>We can see that the output state at the end of the ChaCha20 operation given in <a href="https://www.rfc-editor.org/rfc/rfc8439#page-10" target="_blank">RFC 8439</a> is the same as the output of my circuitry block_function with the same inputs. Thank God - I'm tired of staring at wires.</p>
+    <br>
+
+    <h2>My Circuitry Implementation of the Encryption Process</h2>
+    <p>This section uses the outputted keystream of the block_function to actually encrypt a plaintext message using XORs.</p>
+    <div class="circuitry-images">
+        <img src="../images/chacha20circuitry/encryptor.png" alt="Encryption portion">
+        <p class="image-descriptor">Circuitry for storing and encrypting the plaintext.</p>
+        <p>This setup utilizes a 32-bit addressability ROM that can be loaded with the contents of an external .dat file containing the hex values of a desired plaintext. My circuitry uses the simulation's clock to increment an address counter ("addr" seen on the left in the above image) and access each memory location in the ROM. During each clock cycle, it takes the current plaintext word that it retrieved from memory and XORs it with the associated word of the keystream (denoted by ksN and given as the output of the block_function), effectively encrypting it into a ciphertext word (denoted by cN).</p>
+        <br>
+
+        <img src="../images/chacha20circuitry/ciphertextDisplay.png" alt="Display portion">
+        <p class="image-descriptor">The circuitry of 7-segment displays used to output the ciphertext of the plaintext 'hello i'm andy' with the default constant, key, counter, and nonce given in the RFC test vector.</p>
+        <br>
+
+        <img src="../images/chacha20circuitry/securityFeature.png" alt="Security Feature portion">
+        <p class="image-descriptor">Added circuitry that prevents the contents of the keystream from being output to the displays.</p>
+        <p>The registers and comparators used here ensure that each word of the ciphertext continues to be displayed as the simulation runs and is not wiped to {00000000}. The set of multiplexers uses a conditional check (at the bottom) to determine when the plaintext has ended (indicated by an entire word being 0). As soon as this happens, the output to be displayed for a given word will simply be 0 rather than being the calculated "cipherText". The reason I put the word 'ciphertext' in quotations here is because once the plaintext ends and becomes 0s, the ciphertext calculated via (Plaintext XOR Keystream) will simply be the keystream. Publishing this keystream is terrible for security purposes. Obviously this encryption setup is not secure, and there are a jabillion other glaring issues; but I thought this was a fun way to protect some semi-important information using hardware.</p>
+    </div>
+    <br>
+
+    <p>I hope this was somewhat interesting. I went crazy like 4 times trying to find a bug in my circuitry, but that only makes the end result feel even better (which is what I tell myself). It was honestly pretty fun getting to study a specific encryption algorithm in such detail, and hopefully this can be used as a pedagogical tool for any students in FCRG's Reconfigurable Computing subteam looking to "visualize" a hardware implementation to an algorithm we've worked on in Verilog.</p>
+    <h2>Thanks : )</h2>
+
+
+
+
+
     </main>
     <footer class="site-footer">
         <p>Contact: andrewburgessgt@gmail.com</p>

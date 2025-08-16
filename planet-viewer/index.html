@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Planet Position Tracker</title>
+    <link rel="icon" type="image/png" href="/planet-viewer/Saturn.png">
+    <script type="module" crossorigin src="/planet-viewer/assets/index-C-DF59ZT.js"></script>
+    <link rel="stylesheet" crossorigin href="/planet-viewer/assets/index-n7Lx4VDP.css">
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      .site-header {
+        background: #000;
+        padding: 10px 0;
+        text-align: center;
+        margin: 0;
+        border-radius: 0;
+      }
+      .site-title {
+        color: #fff;
+        font-size: 24px;
+        font-weight: bold;
+        text-decoration: underline;
+      }
+      .site-footer {
+        background: #000;
+        color: #fff;
+        text-align: center;
+        padding: 10px 0;
+        position: relative;
+        bottom: 0;
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+      }
+      .footer-contact-links {
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="site-title" href="../index.html">Andrew's Thoughts</a>
+    </header>
+    <main>
+      <h1>Planet Position Tracker</h1>
+
+
+    <form id="coords-form" style="margin-bottom:1em;">
+      <label>Latitude [-90,+90]: <input type="number" id="lat-input" step="any" min="-90" max="90" required></label>
+      <label>Longitude [-180,+180]: <input type="number" id="lon-input" step="any" min="-180" max="180" required></label>
+      <button type="button" id="use-geoloc">Use My Location</button>
+    </form>
+
+    <label>Select a date/time:</label><input type="datetime-local" id="datetime">
+    <button id="update-btn">Get Positions</button>
+
+
+  <table id="planet-table" style="margin-top:2em;">
+  <canvas id="sky-map" width="820" height="500" style="display:block; margin:2em auto 0.5em auto; background:#222; border-radius:8px;"></canvas>
+  <div class="map-source">Background Image Source: <a href="https://exoplanets.nasa.gov/milky-way-overlay/" target="_blank">NASA Exoplanet Exploration</a></div>
+      <thead>
+        <tr>
+          <th>Planet</th>
+          <th>Right Ascension: [0,24) Hours</th>
+          <th>Declination: [-90, +90]º</th>
+          <th>Altitude: [-90, +90]º</th>
+          <th>Azimuth: [0, 360)º</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>The Moon</td><td id="moon-ra"></td><td id="moon-dec"></td><td id="moon-alt"></td><td id="moon-az"></td></tr>
+        <tr><td>Mercury</td><td id="mercury-ra"></td><td id="mercury-dec"></td><td id="mercury-alt"></td><td id="mercury-az"></td></tr>
+        <tr><td>Venus</td><td id="venus-ra"></td><td id="venus-dec"></td><td id="venus-alt"></td><td id="venus-az"></td></tr>
+        <tr><td>Mars</td><td id="mars-ra"></td><td id="mars-dec"></td><td id="mars-alt"></td><td id="mars-az"></td></tr>
+        <tr><td>Jupiter</td><td id="jupiter-ra"></td><td id="jupiter-dec"></td><td id="jupiter-alt"></td><td id="jupiter-az"></td></tr>
+        <tr><td>Saturn</td><td id="saturn-ra"></td><td id="saturn-dec"></td><td id="saturn-alt"></td><td id="saturn-az"></td></tr>
+        <tr><td>Uranus</td><td id="uranus-ra"></td><td id="uranus-dec"></td><td id="uranus-alt"></td><td id="uranus-az"></td></tr>
+        <tr><td>Neptune</td><td id="neptune-ra"></td><td id="neptune-dec"></td><td id="neptune-alt"></td><td id="neptune-az"></td></tr>
+      </tbody>
+    </table>
+
+    <div class="coordinate-explanation" style="max-width: 700px; margin: 2em auto 0 auto; background: #f5f5f5; padding: 1.5em; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); text-align: left;">
+      <h2 style="margin-top:0; font-size:1.2em;">Interpreting these Numbers :-)</h2>
+      <p>
+        Right ascension and declination, when paired together, form <a href="https://en.wikipedia.org/wiki/Equatorial_coordinate_system" target="_blank"> equatorial coordinates</a> and can be thought of as the celestial source of truth for the location of an object in the night sky. They do not depend on the position of the observer on Earth.
+      </p>
+      <p>
+        <a href="https://en.wikipedia.org/wiki/Right_ascension" target="_blank"> <b>Right ascension</b></a> is analogous to terrestrial longitude (the vertical ones) and measures the angle away from a zero-point along the celestial equator. The chosen zero-point for RA is the direction in the sky toward the vernal equinox, where the Sun crosses from south to north at the March equinox. Think of this as the space equivalent of the Prime Meridian. It’s entirely arbitrary, chosen by us, and accepted as convention. The unit for right ascension is sidereal hours in which a full rotation around the celestial equator would be 24 hours.
+      </p>
+      <p>
+        <a href="https://en.wikipedia.org/wiki/Declination" target="_blank"> <b>Declination</b></a> is analogous to terrestrial latitude (the horizontal ones) and measures the angle above or below the celestial equator. For me, this is easier to intuitively understand and seems less arbitrary than right ascension’s zero-point (due to the fact that the celestial equator makes obvious sense as a starting point). Its units are in degrees and range from -90 to +90 with negative values being south of the equator and positive values being north.
+      </p>
+  <img src="/planet-viewer/raDec.gif" class="centered-img">
+  <div class="img-source">Source: <a href="https://en.wikipedia.org/wiki/Right_ascension" target="_blank">Wikipedia - Right Ascension</a></div>
+      <br>
+      <p>
+        Altitude and Azimuth (alt/az system), on the other hand, are dependent on the location of the observer and together form the <a href="https://en.wikipedia.org/wiki/Horizontal_coordinate_system" target="_blank"> horizontal coordinate system</a>. Whereas declination uses the celestial equator as a zero-point in measuring the “north/south-ness” of an object, this coordinate system uses the observer’s local horizon. This means that both terrestrial latitude and elevation affect our values. Someone really high up on a mountain with their telescope is gonna have slightly different positions than someone at sea level. For me, these values are much more practical when trying to locate objects in the sky.
+      </p>
+      <p>
+        <b>Altitude</b>, measured in degrees above or below your local horizon, can be thought of as the height of the object in your sky. 0º is right on the horizon and 90º is directly above your head (at a point called the zenith).
+      </p>
+      <p>
+        <a href="https://en.wikipedia.org/wiki/Azimuth" target="_blank"> <b>Azimuth</b></a>, also measured in degrees (although ranging from 0-360), measures how far away from North an object is. A star/planet with an azimuth of 0º is directly aligned with North, 90º at East, 180º at South, and 270º at West.
+      </p>
+  <img src="/planet-viewer/altAz.png" class="centered-img">
+  <div class="img-source">Source: <a href="https://en.wikipedia.org/wiki/Horizontal_coordinate_system" target="_blank">Wikipedia - Horizontal coordinate system</a></div>
+    </div>
+
+    <!-- Vite will inject your bundled JS here -->
+    </main>
+    <footer class="site-footer">
+      <p>Contact: andrewburgessgt@gmail.com</p>
+      <p>LinkedIn: <a class="footer-contact-links" href="https://www.linkedin.com/in/andrew-c-burgess/" target="_blank">Andrew-C-Burgess</a></p>
+      <p>GitHub: <a class="footer-contact-links" href="https://github.com/AcBurggg" target="_blank">AcBurggg</a></p>
+      <a class="footer-contact-links" href="../index.html">Back to Main</a>
+    </footer>
+  </body>
+</html>

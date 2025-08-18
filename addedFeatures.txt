@@ -1,0 +1,50 @@
+Major developmental changes to planet-viewer should be done in that repository. When finished, run 'npm run build'. This creates /dist. Duplicate this folder and rename it 'planet-viewer'.
+ Move it into this repository on your computer. Add the following HTML changes. 
+
+//add this to the head
+<style>
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      .site-header {
+        background: #000;
+        padding: 10px 0;
+        text-align: center;
+        margin: 0;
+        border-radius: 0;
+      }
+      .site-title {
+        color: #fff;
+        font-size: 24px;
+        font-weight: bold;
+        text-decoration: underline;
+      }
+      .site-footer {
+        background: #000;
+        color: #fff;
+        text-align: center;
+        padding: 10px 0;
+        position: relative;
+        bottom: 0;
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+      }
+      .footer-contact-links {
+        color: #fff;
+      }
+ </style>
+
+ //add this at top of main body
+    <header class="site-header">
+      <a class="site-title" href="../index.html">Andrew's Thoughts</a>
+    </header>
+
+    //at this at bottom
+        <footer class="site-footer">
+            <p>Contact: andrewburgessgt@gmail.com</p>
+            <p>LinkedIn: <a class="footer-contact-links" href="https://www.linkedin.com/in/andrew-c-burgess/" target="_blank">Andrew-C-Burgess</a></p>
+            <p>GitHub: <a class="footer-contact-links" href="https://github.com/AcBurggg" target="_blank">AcBurggg</a></p>
+            <a class="footer-contact-links" href="../index.html">Back to Main</a>
+        </footer>
